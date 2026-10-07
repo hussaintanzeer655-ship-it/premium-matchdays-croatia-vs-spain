@@ -1,0 +1,419 @@
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+  &lt;title&gt;Matchdays Studio — Croatia vs Spain&lt;/title&gt;
+  &lt;style&gt;
+    :root{
+      --bg: #0e0f14;
+      --surface: #141a22;
+      --card: #1e2530;
+      --text: #e9eefc;
+      --muted: #b6c2d9;
+      --brand: #ffd166;
+      --accent: #6a9cff;
+      --grad-a: rgba(45, 74, 140, .25);
+      --grad-b: rgba(255, 209, 102, .15);
+      --shadow: 0 8px 28px rgba(0,0,0,.25);
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(1200px circle at 10% -10%, rgba(255,209,102,.08), transparent 40%),
+                  radial-gradient(900px circle at 100% 0%, rgba(106,156,255,.08), transparent 40%),
+                  var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    /* Navigation */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(20,26,38,.92);
+      backdrop-filter: saturate(1.2) blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 700; letter-spacing: .4px;
+    }
+    .brand-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: inline-grid; place-items: center;
+      background: linear-gradient(135deg, #2a3a6b 0%, #1e2a55 100%);
+      box-shadow: inset 0 0 10px rgba(0,0,0,.25);
+    }
+    .brand-name { font-size: 16px; }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .cta-small {
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 8px 14px; border-radius: 999px;
+      color: var(--text); background: transparent;
+    }
+    .cta-primary {
+      background: linear-gradient(135deg, #ffd166 0%, #f6b500 60%);
+      color: #1b1b1b; padding: 12px 18px; border-radius: 999px;
+      border: none; font-weight: 700; letter-spacing: .4px;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+    }
+    .nav-toggle { display: none; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 40px;
+      position: relative;
+      overflow: clip;
+    }
+    .hero-visual {
+      height: 52vh; min-height: 380px; border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(106,156,255,.25), rgba(255,209,102,.25)),
+                  url(&#39;data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;1200&quot; height=&quot;600&quot; viewBox=&quot;0 0 1200 600&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;g&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop stop-color=&quot;%23ffd166&quot; offset=&quot;0&quot;/&gt;&lt;stop stop-color=&quot;%236a9cff&quot; offset=&quot;1&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;&lt;rect width=&quot;1200&quot; height=&quot;600&quot; fill=&quot;url(%23g)&quot;/&gt;&lt;g fill=&quot;none&quot; stroke=&quot;white&quot; stroke-opacity=&quot;.2&quot; stroke-width=&quot;4&quot;&gt;&lt;path d=&quot;M0 520 C 200 480, 400 560, 600 520 S 1000 480, 1200 520&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&#39;);
+      background-size: cover;
+      display: grid; place-items: center;
+      color: #0b0b0b;
+      position: relative;
+    }
+    .hero-inner {
+      display: grid; gap: 20px; align-items: end; grid-template-columns: 1fr 1fr;
+      height: 100%; width: 100%; padding: 0 2rem;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(0,0,0,.25); color: #fff; font-weight: 600; font-size: 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      width: max-content;
+    }
+    .hero-copy h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.05;
+      margin: 0;
+      letter-spacing: .3px;
+    }
+    .hero-copy p { color: var(--muted); font-size: 16px; max-width: 60ch; }
+    .grid-visual {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      align-items: end;
+    }
+    .stat {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 14px; border-radius: 12px;
+    }
+    .stat .label { font-size: 12px; color: var(--muted); }
+    .stat .value { font-size: 20px; font-weight: 700; margin-top: 6px; }
+
+    /* Sections */
+    section { padding: 68px 0; }
+    h2 { font-size: 28px; margin: 0 0 14px; }
+    .lead { color: var(--muted); max-width: 60ch; }
+
+    .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-sm); padding: 16px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+
+    .team {
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 10px; border-radius: 10px; background: rgba(20,26,38,.5);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .team-name { display:flex; align-items: center; gap: 8px; }
+    .crest {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: conic-gradient(from 180deg at 50% 50%, #ffd166, #6a9cff);
+      display: inline-block;
+      mask: url(&quot;data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;white&quot;&gt;&lt;path d=&quot;M12 2l3 6 6 1-4.5 4.5 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z&quot;/&gt;&lt;/svg&gt;&quot;) center / 12px no-repeat;
+      -webkit-mask: url(&quot;data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;white&quot;&gt;&lt;path d=&quot;M12 2l3 6 6 1-4.5 4.5 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z&quot;/&gt;&lt;/svg&gt;&quot;) center / 12px no-repeat;
+      margin-right: 8px;
+    }
+    .chip { font-size: 12px; padding: 6px 10px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.25); color:#fff;
+    }
+
+    .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .list-item { padding: 12px; border-radius: 10px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);} 
+    .footer {
+      color: var(--muted); font-size: 13px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* Footer columns */
+    .footer-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 1fr; gap: 28px; align-items: start; }
+
+    /* Misc */
+    .sr-only { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+    @media (max-width: 900px){
+      .hero-inner{ grid-template-columns: 1fr; gap: 14px; }
+      .grid-visual{ grid-template-columns: repeat(2, 1fr); }
+      .two-col{ grid-template-columns: 1fr; }
+      nav .nav-links{ display:none; }
+      .nav-toggle{ display:block; background: transparent; border:1px solid rgba(255,255,255,.25); padding:6px 10px; border-radius:6px; color:#fff; }
+    }
+    @media (min-width: 901px){
+      .nav-toggle { display:none; }
+    }
+    /* Focus */
+    :focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header aria-label=&quot;Site header&quot;&gt;
+    &lt;div class=&quot;container&quot; style=&quot;padding:12px 0;&quot;&gt;
+      &lt;nav aria-label=&quot;Main navigation&quot; style=&quot;display:flex; align-items:center; justify-content:space-between;&quot;&gt;
+        &lt;div class=&quot;brand&quot; aria-label=&quot;Brand&quot;&gt;
+          &lt;span class=&quot;brand-icon&quot; aria-hidden=&quot;true&quot;&gt;⚽&lt;/span&gt;
+          &lt;span class=&quot;brand-name&quot;&gt;Matchdays Studio&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-links&quot; role=&quot;navigation&quot; aria-label=&quot;Site sections&quot;&gt;
+          &lt;a href=&quot;#story&quot; class=&quot;cta-small&quot; style=&quot;opacity:.9;&quot;&gt;Story&lt;/a&gt;
+          &lt;a href=&quot;#data&quot; class=&quot;cta-small&quot; style=&quot;opacity:.9;&quot;&gt;Data&lt;/a&gt;
+          &lt;a href=&quot;#tickets&quot; class=&quot;cta-small&quot; style=&quot;opacity:.9;&quot;&gt;Tickets&lt;/a&gt;
+          &lt;button class=&quot;cta-primary&quot; aria-label=&quot;Purchase premium access&quot;&gt;Buy premium&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;button class=&quot;nav-toggle&quot; aria-label=&quot;Open menu&quot; onclick=&quot;toggleMenu()&quot;&gt;Menu&lt;/button&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main id=&quot;main&quot; role=&quot;main&quot;&gt;
+    &lt;section class=&quot;hero&quot; aria-label=&quot;Hero&quot;&gt;
+      &lt;div class=&quot;hero-visual&quot; style=&quot;background-image:radial-gradient(circle at 60% 20%, rgba(255,209,102,.25), transparent 40%), radial-gradient(circle at 20% 80%, rgba(106,156,255,.25), transparent 40%);&quot;&gt;
+        &lt;div class=&quot;hero-inner container&quot; style=&quot;gap:28px; align-items:end;&quot;&gt;
+          &lt;div class=&quot;hero-copy&quot; style=&quot;padding: 8px;&quot;&gt;
+            &lt;span class=&quot;badge&quot; aria-label=&quot;Event badge&quot;&gt;
+              Live Matchday
+              &lt;span aria-hidden=&quot;true&quot;&gt;•&lt;/span&gt;
+              Croatia vs Spain
+            &lt;/span&gt;
+            &lt;h1&gt;Croatia vs Spain
+              &lt;span style=&quot;color:#ffd166;&quot;&gt; 2026 Rivalry Redefined&lt;/span&gt;
+            &lt;/h1&gt;
+            &lt;p class=&quot;lead&quot; style=&quot;font-size:15px;&quot;&gt;
+              A premium, editorial experience built around a marquee football fixture. See the game through the lens of data, storytelling, and craft. A production-ready page for fans, partners, and media.
+            &lt;/p&gt;
+            &lt;div style=&quot;display:flex; gap:12px; align-items:center; flex-wrap:wrap;&quot;&gt;
+              &lt;button class=&quot;cta-primary&quot; onclick=&quot;scrollToSection(&#39;tickets&#39;)&quot;&gt;Get Premium Access&lt;/button&gt;
+              &lt;button class=&quot;cta-small&quot; onclick=&quot;scrollToSection(&#39;story&#39;)&quot;&gt;See the Story&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;grid-visual&quot; aria-label=&quot;Key metrics&quot;&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Current boost&lt;/div&gt;
+              &lt;div class=&quot;value&quot; id=&quot;boost-1&quot;&gt;+12.0%&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Engagement index&lt;/div&gt;
+              &lt;div class=&quot;value&quot; id=&quot;boost-2&quot;&gt;8.9/10&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Forecast reach&lt;/div&gt;
+              &lt;div class=&quot;value&quot; id=&quot;boost-3&quot;&gt;1.2M&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;story&quot; aria-labelledby=&quot;story-title&quot;&gt;
+      &lt;div class=&quot;container two-col&quot; style=&quot;gap:32px;&quot;&gt;
+        &lt;div class=&quot;card&quot; aria-label=&quot;Story copy&quot;&gt;
+          &lt;h2 id=&quot;story-title&quot; style=&quot;font-size:22px; margin-bottom:6px;&quot;&gt;A premium storytelling framework&lt;/h2&gt;
+          &lt;p class=&quot;lead&quot; style=&quot;margin:0 0 10px;&quot;&gt;
+            We anchor the matchday in a refined brand universe: a balanced palette, editorial typography, and quiet motion that respects the viewer’s attention. This is not a hype page; it’s a narrative surface that elevates credibility and anticipation.
+          &lt;/p&gt;
+          &lt;ul class=&quot;list&quot; style=&quot;margin-top:6px;&quot;&gt;
+            &lt;li class=&quot;list-item&quot; aria-label=&quot;Editorial concept&quot;&gt;
+              Editorial grid that mirrors a magazine spine
+            &lt;/li&gt;
+            &lt;li class=&quot;list-item&quot; aria-label=&quot;Typography&quot;&gt;
+              Tight typographic scale with generous leading
+            &lt;/li&gt;
+            &lt;li class=&quot;list-item&quot; aria-label=&quot;Motion&quot;&gt;
+              Subtle micro-interactions on hover and focus
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;card&quot; aria-label=&quot;Key highlights&quot;&gt;
+          &lt;h3 style=&quot;margin:0 0 8px; font-size:16px; color:var(--muted);&quot;&gt;Highlights&lt;/h3&gt;
+          &lt;div class=&quot;grid&quot; style=&quot;grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:12px;&quot;&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Highlight 1&quot;&gt;
+              &lt;div class=&quot;team-name&quot;&gt;
+                &lt;span class=&quot;crest&quot; aria-hidden=&quot;true&quot; style=&quot;width:20px; height:20px;&quot;&gt;&lt;/span&gt;
+                Croatia
+              &lt;/div&gt;
+              &lt;span class=&quot;chip&quot; style=&quot;background: rgba(106,156,255,.25); border-color: rgba(106,156,255,.6);&quot;&gt;Defensive strength&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Highlight 2&quot;&gt;
+              &lt;div class=&quot;team-name&quot;&gt;
+                &lt;span class=&quot;crest&quot; aria-hidden=&quot;true&quot; style=&quot;width:20px; height:20px; background: linear-gradient(#ffd166,#6a9cff);&quot;&gt;&lt;/span&gt;
+                Spain
+              &lt;/div&gt;
+              &lt;span class=&quot;chip&quot; style=&quot;background: rgba(255,209,102,.25); border-color: rgba(255,209,102,.6);&quot;&gt;Ball control&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Highlight 3&quot;&gt;
+              &lt;div class=&quot;team-name&quot;&gt;
+                &lt;span class=&quot;crest&quot; aria-hidden=&quot;true&quot; style=&quot;width:20px; height:20px; background: conic-gradient(from 90deg, #6a9cff, #ffd166);&quot;&gt;&lt;/span&gt;
+                Preview
+              &lt;/div&gt;
+              &lt;span class=&quot;chip&quot; style=&quot;background: rgba(106,156,255,.25); border-color: rgba(106,156,255,.6);&quot;&gt;Broadcast bundle&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;data&quot; aria-labelledby=&quot;data-title&quot;&gt;
+      &lt;div class=&quot;container&quot;&gt;
+        &lt;h2 id=&quot;data-title&quot; style=&quot;margin-bottom:6px;&quot;&gt;Trend-informed stadium surface&lt;/h2&gt;
+        &lt;p class=&quot;lead&quot; style=&quot;margin-bottom:18px;&quot;&gt;
+          A compact, data-driven display of performance indicators and fan sentiment curated for media briefs and premium fans.
+        &lt;/p&gt;
+        &lt;div class=&quot;two-col&quot;&gt;
+          &lt;div class=&quot;card&quot; aria-label=&quot;Data blocks&quot;&gt;
+            &lt;div class=&quot;grid&quot; style=&quot;grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));&quot;&gt;
+              &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+                &lt;div class=&quot;label&quot;&gt;Match tempo&lt;/div&gt;
+                &lt;div class=&quot;value&quot;&gt;Neutral&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+                &lt;div class=&quot;label&quot;&gt;Possession&lt;/div&gt;
+                &lt;div class=&quot;value&quot;&gt;52%&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+                &lt;div class=&quot;label&quot;&gt;Expected goals&lt;/div&gt;
+                &lt;div class=&quot;value&quot;&gt;2.1&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card&quot; aria-label=&quot;Lineups&quot;&gt;
+            &lt;h4 style=&quot;margin:0 0 8px;&quot;&gt;Lineups snapshot&lt;/h4&gt;
+            &lt;ul class=&quot;list&quot; style=&quot;margin:0;&quot;&gt;
+              &lt;li class=&quot;list-item&quot; aria-label=&quot;Croatia starting XI&quot;&gt;
+                Modrić • Kovavic • Livaja
+              &lt;/li&gt;
+              &lt;li class=&quot;list-item&quot; aria-label=&quot;Spain starting XI&quot;&gt;
+                Pedri • Olmo • Morata
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;tickets&quot; aria-labelledby=&quot;tickets-title&quot;&gt;
+      &lt;div class=&quot;container two-col&quot;&gt;
+        &lt;div class=&quot;card&quot; aria-label=&quot;Premium access details&quot;&gt;
+          &lt;h2 id=&quot;tickets-title&quot; style=&quot;margin:0 0 8px;&quot;&gt;Premium Studio Pass&lt;/h2&gt;
+          &lt;p class=&quot;lead&quot; style=&quot;margin:0 0 12px;&quot;&gt;
+            Access exclusive motion art, high-fidelity player profiles, and a media-ready kit for broadcast partners. Limited bundles available.
+          &lt;/p&gt;
+          &lt;div class=&quot;grid&quot; style=&quot;grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:12px;&quot;&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Includes&lt;/div&gt;
+              &lt;div class=&quot;value&quot; style=&quot;font-size:16px; margin-top:6px;&quot;&gt;Editorial package&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Access&lt;/div&gt;
+              &lt;div class=&quot;value&quot; style=&quot;font-size:16px; margin-top:6px;&quot;&gt;HD broadcast-ready&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;stat&quot; role=&quot;article&quot;&gt;
+              &lt;div class=&quot;label&quot;&gt;Support&lt;/div&gt;
+              &lt;div class=&quot;value&quot; style=&quot;font-size:16px; margin-top:6px;&quot;&gt;Dedicated producer&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div style=&quot;margin-top:12px;&quot;&gt;
+            &lt;button class=&quot;cta-primary&quot; onclick=&quot;alert(&#39;Premium purchased. Welcome to Studio Access.&#39;)&quot; aria-label=&quot;Purchase premium access&quot;&gt;Purchase Premium Access&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;card&quot; aria-label=&quot;Sponsor and partner section&quot;&gt;
+          &lt;h3 style=&quot;margin:0 0 8px; font-size:16px; color:var(--muted);&quot;&gt;Partners &amp; Sponsors&lt;/h3&gt;
+          &lt;div class=&quot;grid&quot; style=&quot;grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:12px;&quot;&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Partner 1&quot;&gt;
+              &lt;span class=&quot;team-name&quot;&gt;Global Sports Media&lt;/span&gt;
+              &lt;span class=&quot;chip&quot;&gt;Media Kit&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Partner 2&quot;&gt;
+              &lt;span class=&quot;team-name&quot;&gt;Premium Graphics&lt;/span&gt;
+              &lt;span class=&quot;chip&quot;&gt;Brand Assets&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;team&quot; aria-label=&quot;Partner 3&quot;&gt;
+              &lt;span class=&quot;team-name&quot;&gt;Tech &amp; Broadcast&lt;/span&gt;
+              &lt;span class=&quot;chip&quot;&gt;Engagement&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer class=&quot;footer&quot; aria-label=&quot;Site footer&quot;&gt;
+    &lt;div class=&quot;container footer-grid&quot; role=&quot;contentinfo&quot;&gt;
+      &lt;div&gt;
+        &lt;strong&gt;Matchdays Studio&lt;/strong&gt;&lt;br/&gt;
+        A premium brand system for marquee sports storytelling.
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;chip&quot; style=&quot;display:inline-block; margin-bottom:8px;&quot;&gt;Brand system&lt;/div&gt;&lt;br/&gt;
+        Color, typography, and editorial rhythm designed for the modern football fan.
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;chip&quot; style=&quot;display:inline-block; margin-bottom:8px;&quot;&gt;Accessibility&lt;/div&gt;&lt;br/&gt;
+        Keyboard navigable, high-contrast, and screen-reader friendly.
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;container&quot; style=&quot;padding-top:14px;&quot;&gt;
+      © 2026 Matchdays Studio — Croatia vs Spain. All rights reserved.
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el){
+        el.scrollIntoView({behavior:&#39;smooth&#39;, block:&#39;start&#39;});
+      }
+    }
+    function toggleMenu(){
+      const links = document.querySelector(&#39;.nav-links&#39;);
+      if(links.style.display === &#39;flex&#39;){
+        links.style.display = &#39;none&#39;;
+      } else {
+        links.style.display = &#39;flex&#39;;
+        links.style.flexDirection = &#39;column&#39;;
+        links.style.position = &#39;absolute&#39;;
+        links.style.top = &#39;56px&#39;;
+        links.style.right = &#39;16px&#39;;
+        links.style.background = &#39;rgba(20,26,38,.95)&#39;;
+        links.style.padding = &#39;12px&#39;;
+        links.style.borderRadius = &#39;8px&#39;;
+        links.style.boxShadow = &#39;0 8px 20px rgba(0,0,0,.25)&#39;;
+      }
+    }
+    // Lightweight entrance animation for hero stat blocks
+    window.addEventListener(&#39;load&#39;, ()=&gt; {
+      const v1 = document.getElementById(&#39;boost-1&#39;);
+      const v2 = document.getElementById(&#39;boost-2&#39;);
+      const v3 = document.getElementById(&#39;boost-3&#39;);
+      [v1,v2,v3].forEach((el, i) =&gt; {
+        el.style.opacity = &#39;0&#39;; el.style.transform = &#39;translateY(8px)&#39;;
+        setTimeout(()=&gt;{ el.style.transition = &#39;opacity .5s ease, transform .5s ease&#39;; el.style.opacity=&#39;1&#39;; el.style.transform=&#39;translateY(0)&#39;; }, 60*(i+1));
+      });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+INDEX_HTML_END
